@@ -2,7 +2,9 @@
 
 Nothing here but my vim configuration.
 
-#The MIT License (MIT)
+#License
+
+The MIT License (MIT)
 
 Copyright (c) 2016 J Jin
 
