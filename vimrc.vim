@@ -79,10 +79,6 @@ augroup END
 
 " Always("2") show a status in the last window, with info on the file and location in file
 set laststatus=2
-" Left: Full file, modified?, readonly?, helpfile?, preview-window? (fileformat/encoding/font){filetype}
-set statusline=%F%m%r%h%w\ (%{&ff}/%{&encoding}/%{&guifont}){%Y}
-" Right: [virtual column, line number, virtual column]
-set statusline+=%=[%v,\ %l\ of\ %L]
 
 " Themes
 if has("gui_running")
@@ -98,12 +94,13 @@ augroup filetypedetect_custom
    autocmd!
    " .md should be markdown not modula2
    autocmd BufNewFile,BufRead *.md setl ft=markdown
-   autocmd BufNewFile,BufRead *.xaml setl filetype=xml
    autocmd FileType markdown set spell
 
-   autocmd FileType def set filetype=cpp
+   " Open .xaml as .xml
+   autocmd BufNewFile,BufRead *.xaml setl filetype=xml
 
-   autocmd Syntax thrift source ~/vimfiles/thrift.vim
+   " Open .def as .cpp
+   autocmd FileType def set filetype=cpp
 
    " Autocomplete for .cs files
    autocmd FileType cs nnoremap <C-space> <C-x><C-o><C-p>
@@ -111,6 +108,8 @@ augroup filetypedetect_custom
    " Quickfix open in new vsplit
    autocmd! FileType qf nnoremap <buffer> <leader><CR> <C-w><CR><C-w>r
 
+   " Set filetype to Configuration file
+   autocmd BufNewFile,BufRead package set ft=conf
 augroup END
 
 " On Windows, open gvim maximized
@@ -150,17 +149,12 @@ function! ToggleJapaneseFont()
 endfunction
 nnoremap <F5> :call ToggleJapaneseFont()<cr>
 
-" Set filetype to Configuration file
-nnoremap <F6> :set ft=conf<cr>
-
-" Note: There are no mappings on <F7>
-
 nnoremap <F8>/ :let @*=substitute(@*, "\\", "/", "g")<cr>:echo @*<cr>
 nnoremap <F8>\ :let @*=substitute(@*, "/", "\\", "g")<cr>:echo @*<cr>
 nnoremap <F8>y :let @*=substitute(substitute(@*, "^P:", "Y:", "g"), "^p:", "y:", "g")<cr>:echo @*<cr>
 
-nnoremap <F9> !%python -m json.tool<cr>
-nnoremap <C-F9> :r !xxd %<cr>
+command! Json %!python -m json.tool
+command! Hexify r !xxd %
 
 " <F10> Vimgrep shortcuts
 " This is the best function in this file: regex search across multiple files
@@ -321,16 +315,6 @@ call plug#end()
 " :PlugUpdate to install or update
 " :PlugClean to remove unused
 " :PlugStatus
-
-"" NERDTree: The directory tree
-"" Show the current file in the NERDTree windows
-"nnoremap <F3> :NERDTreeFind<CR>
-"" Make the NERDTree window 40 chars wide
-"let g:NERDTreeWinSize = 40
-"" Show hidden files by default except . and ..
-"let g:NERDTreeShowHidden = 1
-"let g:NERDTreeIgnore = ['\.\.$', '\.$'] " regexes to ignore '.' and '..'
-"" nerdtree-tabs handles the automatic opening, so no worries
 
 " a.vim:
 " <F12> Switch from header file to .c/.cpp
