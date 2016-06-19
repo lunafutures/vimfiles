@@ -3,6 +3,7 @@
 backup/
 tmp/
 undo/
+plugged/
 
 #################
 ## Eclipse

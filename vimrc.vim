@@ -119,6 +119,7 @@ autocmd GUIEnter * simalt ~x
 " &actualvimrc will contain the path of this script,
 " and not the name of the file trying to source this script
 let actualvimrc = expand("<sfile>")
+let actualvimrcdir = expand("<sfile>:p:h")
 execute "noremap <F1> :tabe" actualvimrc "<CR>"
 noremap <C-F1> :source $MYVIMRC<CR>
 
@@ -299,6 +300,30 @@ inoremap <s-backspace> <esc>vT_s
 ""================
 "" Plugin-specific
 ""================
+
+" Install packages into 'plugged' directory
+call plug#begin(actualvimrcdir . '\plugged')
+
+Plug 'scrooloose/nerdtree'
+Plug 'easymotion/vim-easymotion'
+Plug 'vim-airline/vim-airline'
+
+Plug 'vim-scripts/mru'
+Plug 'vim-scripts/a.vim'
+
+Plug 'tpope/vim-dispatch'
+Plug 'kien/ctrlp.vim'
+Plug 'scrooloose/syntastic'
+Plug 'OmniSharp/omnisharp-vim'
+
+call plug#end()
+
+" vim-plug reference:
+" Reload .vimrc and :PlugInstall to install plugins.
+" :PlugUpdate to install or update
+" :PlugClean to remove unused
+" :PlugStatus
+
 "" NERDTree: The directory tree
 "" Make the NERDTree window 40 chars wide
 "let g:NERDTreeWinSize = 40
