@@ -105,8 +105,11 @@ augroup filetypedetect_custom
 
    autocmd Syntax thrift source ~/vimfiles/thrift.vim
 
-   " Autocomplete
+   " Autocomplete for .cs files
    autocmd FileType cs nnoremap <C-space> <C-x><C-o><C-p>
+
+   " Quickfix open in new vsplit
+   autocmd! FileType qf nnoremap <buffer> <leader><CR> <C-w><CR><C-w>r
 
 augroup END
 
@@ -132,9 +135,6 @@ nnoremap <leader><F2> :let @* = expand("%")<CR>:echo @*<CR>
 nnoremap <F2> :let @* = expand("%:p:h")<CR>:echo @*<CR>
 nnoremap <S-F2> :let @* = expand("%:p")<CR>:echo @*<CR>
 nnoremap <M-F2> :let @* = expand("%:p:h")<CR>:echo @*<CR>:silent !explorer.exe <c-r>*<cr>
-
-" Show the current file in the NERDTree windows
-nnoremap <F3> :NERDTreeFind<CR>
 
 " Toggle line wrapping with the horizontal scrollbar
 nnoremap <silent><expr> <F4> ':set wrap! go'.'-+'[&wrap]."=b\r"
@@ -189,11 +189,6 @@ nnoremap <M-S-n> :cprev<CR>
 nnoremap <M-C-F11> :!p4 edit %<CR><CR>
 inoremap <M-C-F11> <esc>:!p4 edit %<CR><CR>
 
-" <F12> Switch from header file to .c/.cpp
-nnoremap <F12> :A<CR>
-nnoremap <C-S-F12> :AS<CR>
-nnoremap <M-C-F12> :AV<CR>
-
 " C-backspace deletes previous word
 inoremap <C-BS> <C-W>
 cnoremap <C-BS> <C-W>
@@ -238,9 +233,6 @@ nnoremap <silent> <C-h> :wincmd h<CR>
 nnoremap <silent> <C-j> :wincmd j<CR>
 nnoremap <silent> <C-k> :wincmd k<CR>
 nnoremap <silent> <C-l> :wincmd l<CR>
-
-" Quickfix open in new vsplit
-autocmd! FileType qf nnoremap <buffer> <leader><CR> <C-w><CR><C-w>r
 
 " Wrap $(...) around a word
 inoremap ;4 <esc>vbo<esc>a)<esc>`<i$(<esc>%a
@@ -304,17 +296,21 @@ inoremap <s-backspace> <esc>vT_s
 " Install packages into 'plugged' directory
 call plug#begin(actualvimrcdir . '\plugged')
 
-Plug 'scrooloose/nerdtree'
+"Plug 'scrooloose/nerdtree'
 Plug 'easymotion/vim-easymotion'
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'tpope/vim-vinegar'
 
-Plug 'vim-scripts/mru'
+Plug 'yegappan/mru'
 Plug 'vim-scripts/a.vim'
+Plug 'solarnz/thrift.vim'
 
 Plug 'tpope/vim-dispatch'
 Plug 'kien/ctrlp.vim'
 Plug 'scrooloose/syntastic'
 Plug 'OmniSharp/omnisharp-vim'
+" For installation of omnisharp: cd server/ and msbuild
 
 call plug#end()
 
@@ -325,42 +321,35 @@ call plug#end()
 " :PlugStatus
 
 "" NERDTree: The directory tree
+"" Show the current file in the NERDTree windows
+"nnoremap <F3> :NERDTreeFind<CR>
 "" Make the NERDTree window 40 chars wide
 "let g:NERDTreeWinSize = 40
 "" Show hidden files by default except . and ..
 "let g:NERDTreeShowHidden = 1
 "let g:NERDTreeIgnore = ['\.\.$', '\.$'] " regexes to ignore '.' and '..'
 "" nerdtree-tabs handles the automatic opening, so no worries
-"
-"" EasyMotion: Easier jumping around
-"" The leader approves of easymotion
-"nmap <leader> <Plug>(easymotion-prefix)
-"vmap <leader> <Plug>(easymotion-prefix)
-"
-"" MRU: Remembers where I was
-"" Cache should have 2000 entries
-"let MRU_Max_Entries = 2000
-"" Shortcut to open MRU, and MRU only on package files
-"nnoremap <leader>m :MRU<cr>
-"nnoremap <leader>M :MRU package<cr>
-"" Open up package file and show its file tree
-"nmap <leader>x <cr>:only<cr>:NERDTree<cr>
-"
-"" SemanticHighlight:
-"nnoremap <leader>. :SemanticHighlightToggle<cr>
-"
-"" Rainbow:
-"let g:rainbow_active = 1
-"
-"" Pathogen:
-"execute pathogen#infect()
-"
-"" Pencil: The current colorscheme
-"colorscheme pencil
-"set background=light
-"let g:pencil_higher_contrast_ui = 1
-"" Highlight is gray by default in pencil, set it to yellow
-"hi Search guibg=Yellow
-"
-"" Airline:
-"let g:airline_theme="light"
+
+" a.vim:
+" <F12> Switch from header file to .c/.cpp
+nnoremap <F12> :A<CR>
+nnoremap <C-S-F12> :AS<CR>
+nnoremap <M-C-F12> :AV<CR>
+
+" EasyMotion: Easier jumping around
+" The leader approves of easymotion
+nmap <leader> <Plug>(easymotion-prefix)
+vmap <leader> <Plug>(easymotion-prefix)
+
+" MRU: Remembers where I was
+" Cache should have 2000 entries
+let MRU_Max_Entries = 2000
+" Shortcut to open MRU, and MRU only on package files
+nnoremap <leader>m :MRU<cr>
+
+" Airline:
+let g:airline_theme="light"
+
+" OmniSharp:
+" (and related)
+let g:syntastic_cs_checkers = ['syntax', 'semantic', 'issues']
