@@ -181,6 +181,7 @@ nnoremap <F10> :pwd<CR>
 nnoremap <S-F10> :cd ..<CR>:pwd<CR>
 nnoremap <C-F10> :call RecursiveVimGrepOnSlashRegister(0)<cr>
 nnoremap <C-M-F10> :call RecursiveVimGrepOnSlashRegister(1)<cr>
+
 " Quickfix navigation for moving through grep entries
 nnoremap <M-n> :cnext<CR>
 nnoremap <M-S-n> :cprev<CR>
@@ -301,6 +302,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-vinegar'
+Plug 'tpope/vim-surround'
 
 Plug 'yegappan/mru'
 Plug 'vim-scripts/a.vim'
