@@ -301,7 +301,6 @@ nnoremap <F7> ^mvf(v%:s/,\@<=\s\+/\r/g<cr>`vf(a<cr><esc>`vf(v%=`v:nohlsearch<cr>
 " Install packages into 'plugged' directory
 call plug#begin(actualvimrcdir . '\plugged')
 
-"Plug 'scrooloose/nerdtree'
 Plug 'easymotion/vim-easymotion'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
