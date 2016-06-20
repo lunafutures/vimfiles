@@ -103,7 +103,7 @@ augroup filetypedetect_custom
    autocmd FileType def set filetype=cpp
 
    " Autocomplete for .cs files
-   autocmd FileType cs nnoremap <C-space> <C-x><C-o><C-p>
+   autocmd FileType cs inoremap <C-space> <C-x><C-o><C-p>
 
    " Quickfix open in new vsplit
    autocmd! FileType qf nnoremap <buffer> <leader><CR> <C-w><CR><C-w>r
@@ -114,6 +114,13 @@ augroup END
 
 " On Windows, open gvim maximized
 autocmd GUIEnter * simalt ~x
+
+" If a vim instance already has opened some file, go to that instance instead
+" of warning about an open file
+if !exists("editexistingloaded")
+   runtime! macros/editexisting.vim
+   let editexistingloaded = 1
+endif
 
 "=========
 " Mappings
@@ -213,7 +220,7 @@ inoremap <silent> <Up> <Esc>gka
 inoremap <silent> <Down> <Esc>gja
 
 " Go to top of fold and center
-nnoremap <M-k> zo[zzz
+nnoremap <S-k> zo[zzz
 
 " Clear search highlights
 " WHICH ONE WILL WIN? YOU DECIDE!!!
@@ -253,11 +260,11 @@ cnoremap <c-j> <down>
 " Don't forget about <c-b> and <c-e> for beginning and end
 " Also <c-w> for delete word and <c-u> for delete to start
 
-" Use tab to shift the window up and down
-nnoremap <tab> 2<c-e>2<c-e>2<c-e>2<c-e>2<c-e>
-nnoremap <s-tab> 2<c-y>2<c-y>2<c-y>2<c-y>2<c-y>
-vnoremap <tab> 2<c-e>2<c-e>2<c-e>2<c-e>2<c-e>
-vnoremap <s-tab> 2<c-y>2<c-y>2<c-y>2<c-y>2<c-y>
+" Shift the window up and down
+nnoremap <m-j> 2<c-e>2<c-e>2<c-e>2<c-e>2<c-e>
+vnoremap <m-j> 2<c-e>2<c-e>2<c-e>2<c-e>2<c-e>
+nnoremap <m-k> 2<c-y>2<c-y>2<c-y>2<c-y>2<c-y>
+vnoremap <m-k> 2<c-y>2<c-y>2<c-y>2<c-y>2<c-y>
 
 " Find and remove whitespace at end of lines
 nnoremap <leader>q /\s\+$<cr>
@@ -328,13 +335,15 @@ nmap <leader> <Plug>(easymotion-prefix)
 vmap <leader> <Plug>(easymotion-prefix)
 
 " MRU: Remembers where I was
-" Cache should have 2000 entries
-let MRU_Max_Entries = 2000
+let MRU_Max_Entries = 5000
 " Shortcut to open MRU, and MRU only on package files
 nnoremap <leader>m :MRU<cr>
 
 " Airline:
 let g:airline_theme="light"
+
+" Vinegar:
+nmap <F3> :topleft vsplit<cr>-
 
 " OmniSharp:
 " (and related)
