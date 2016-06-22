@@ -22,6 +22,9 @@ set fileformats=dos
 set shell=cmd.exe
 set shellcmdflag=/c
 
+" Automatically reload the file if it's been changed externally
+set autoread
+
 " Automatically change dir on several events
 set autochdir
 
