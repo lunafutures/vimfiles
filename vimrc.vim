@@ -84,7 +84,7 @@ set laststatus=2
 if has("gui_running")
    set guioptions-=T " Remove toolbar
    set guioptions-=m " Remove menu
-   set guifont=Consolas
+   set guifont=Consolas:h8
 endif
 
 " Wrap navigation past beginning and end of a line
@@ -147,11 +147,11 @@ nnoremap <silent><expr> <F4> ':set wrap! go'.'-+'[&wrap]."=b\r"
 
 " Change font to support Japanese
 function! ToggleJapaneseFont()
-   if &guifont==?"Consolas"
+   if &guifont==?"Consolas:h8"
       set guifont=MS_Gothic
       set encoding=utf-8
    else
-      set guifont=Consolas
+      set guifont=Consolas:h8
    endif
 endfunction
 nnoremap <F5> :call ToggleJapaneseFont()<cr>
@@ -291,6 +291,9 @@ nnoremap <leader>O O<esc>
 " <S-backspace> should delete back to underscore
 inoremap <s-backspace> <esc>vT_s
 
+" Turn a one line function into formatted multi line
+nnoremap <F7> ^mvf(v%:s/,\@<=\s\+/\r/g<cr>`vf(a<cr><esc>`vf(v%=`v:nohlsearch<cr>
+
 ""================
 "" Plugin-specific
 ""================
@@ -336,14 +339,18 @@ vmap <leader> <Plug>(easymotion-prefix)
 
 " MRU: Remembers where I was
 let MRU_Max_Entries = 5000
-" Shortcut to open MRU, and MRU only on package files
+" Shortcut to open MRU
 nnoremap <leader>m :MRU<cr>
 
 " Airline:
 let g:airline_theme="light"
 
 " Vinegar:
-nmap <F3> :topleft vsplit<cr>-
+nmap <F3> :topleft vsplit<cr><Plug>VinegarUp
+
+" Ctrlp:
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_root_markers = ['package']
 
 " OmniSharp:
 " (and related)
