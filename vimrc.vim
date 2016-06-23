@@ -194,6 +194,8 @@ nnoremap <M-S-n> :cprev<CR>
 nnoremap <M-C-F11> :!p4 edit %<CR><CR>
 inoremap <M-C-F11> <esc>:!p4 edit %<CR><CR>
 
+command! P4changes :below new | r !p4 changes -u jijin -s pending -l<cr>
+
 " C-backspace deletes previous word
 inoremap <C-BS> <C-W>
 cnoremap <C-BS> <C-W>
@@ -205,14 +207,16 @@ nnoremap <leader><C-Q><C-Q> :qall<CR>
 
 " Static search, remap */# to be stationary until I press 'n' or something
 nnoremap <silent> # :let @/=escape(expand('<cword>'), '\')<cr>:silent set hls<cr>
-nnoremap <silent> * :let @/='\V\<'.escape(expand('<cword>'), '\').'\>'<cr>:silent set hls<cr>
+nnoremap <silent> * :let @/='\<'.escape(expand('<cword>'), '\').'\>'<cr>:silent set hls<cr>
 " Map for double click
 nmap <2-LeftMouse> *
 " Search on selected text
 vnoremap # y:let @/=@"<cr>:silent set hls<cr>
-vnoremap * y:let @/='\V\<'.@".'\>'<cr>:silent set hls<cr>
+vnoremap * y:let @/='\<'.@".'\>'<cr>:silent set hls<cr>
 " Go to next result and center
 nnoremap <C-n> nzz
+command! Lower let @/=tolower(@/) | echo @/
+nnoremap <leader>l :Lower<cr>
 
 " Next/Previous Tab
 noremap <silent> <C-Tab> :tabnext<CR>
