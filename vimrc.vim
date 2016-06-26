@@ -239,12 +239,6 @@ nnoremap <silent> <C-j> :wincmd j<CR>
 nnoremap <silent> <C-k> :wincmd k<CR>
 nnoremap <silent> <C-l> :wincmd l<CR>
 
-" Wrap $(...) around a word
-inoremap ;4 <esc>vbo<esc>a)<esc>`<i$(<esc>%a
-"nnoremap ;4 viw<esc>a)<esc>`<i$(<esc>%
-" ALL-CAPS the last word in insert mode
-inoremap ;2 <esc>viwU`>a
-
 " Operation-pending on the next "perforcePath = ... ;"
 onoremap i; :<c-u>execute "normal! /perforcePath\r:nohl\rf\/vt;"<cr>
 
