@@ -123,10 +123,7 @@ autocmd GUIEnter * simalt ~x
 
 " If a vim instance already has opened some file, go to that instance instead
 " of warning about an open file
-if !exists("editexistingloaded")
-   runtime! macros/editexisting.vim
-   let editexistingloaded = 1
-endif
+packadd! editexisting
 
 "=========
 " Mappings
@@ -319,16 +316,11 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-surround'
+Plug 'kien/ctrlp.vim'
 
 Plug 'yegappan/mru'
 Plug 'vim-scripts/a.vim'
 Plug 'solarnz/thrift.vim'
-
-Plug 'tpope/vim-dispatch'
-Plug 'kien/ctrlp.vim'
-Plug 'scrooloose/syntastic'
-Plug 'OmniSharp/omnisharp-vim'
-" For installation of omnisharp: cd server/ and msbuild
 
 call plug#end()
 
