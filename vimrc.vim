@@ -166,6 +166,9 @@ nnoremap <F8>y :let @*=substitute(substitute(@*, "^P:", "Y:", "g"), "^p:", "y:",
 command! Json %!python -m json.tool
 command! Hexify r !xxd %
 
+" <F9> Go to last error
+nnoremap <F9> :source C:\Reason\bin\last.vim<cr>
+
 " <F10> Vimgrep shortcuts
 " Regex search across multiple files
 function! RecursiveVimGrepOnSlashRegister(restrictToSource)
@@ -241,12 +244,6 @@ nnoremap <silent> <C-h> :wincmd h<CR>
 nnoremap <silent> <C-j> :wincmd j<CR>
 nnoremap <silent> <C-k> :wincmd k<CR>
 nnoremap <silent> <C-l> :wincmd l<CR>
-
-" Wrap $(...) around a word
-inoremap ;4 <esc>vbo<esc>a)<esc>`<i$(<esc>%a
-"nnoremap ;4 viw<esc>a)<esc>`<i$(<esc>%
-" ALL-CAPS the last word in insert mode
-inoremap ;2 <esc>viwU`>a
 
 " Operation-pending on the next "perforcePath = ... ;"
 onoremap i; :<c-u>execute "normal! /perforcePath\r:nohl\rf\/vt;"<cr>
