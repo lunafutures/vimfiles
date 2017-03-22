@@ -225,6 +225,9 @@ nnoremap <leader>l :Lower<cr>
 noremap <silent> <C-Tab> :tabnext<CR>
 noremap <silent> <C-S-Tab> :tabprevious<CR>
 
+" Insert current date and time at cursor
+inoremap <M-S-D> <C-R>=strftime("%c")<cr>
+
 " Move on what you see, rather than by strict lines
 inoremap <silent> <Up> <Esc>gka
 inoremap <silent> <Down> <Esc>gja
