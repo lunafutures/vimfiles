@@ -225,9 +225,6 @@ nnoremap <leader>l :Lower<cr>
 noremap <silent> <C-Tab> :tabnext<CR>
 noremap <silent> <C-S-Tab> :tabprevious<CR>
 
-" Insert current date and time at cursor
-inoremap <M-S-D> <C-R>=strftime("%c")<cr>
-
 " Move on what you see, rather than by strict lines
 inoremap <silent> <Up> <Esc>gka
 inoremap <silent> <Down> <Esc>gja
@@ -300,7 +297,7 @@ inoremap <s-backspace> <esc>vT_s
 " Turn a one line function into formatted multi line
 nnoremap <F7> ^mvf(v%:s/,\@<=\s\+/\r/g<cr>`vf(a<cr><esc>`vf(v%=`v:nohlsearch<cr>
 
-" Paste the system timestamp
+" Paste the system timestamp at cursor
 nnoremap <s-m-f> "=strftime("%c")<cr>p
 inoremap <s-m-f> <c-r>=strftime("%c")<cr>
 
