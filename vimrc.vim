@@ -10,7 +10,7 @@ set softtabstop=3
 set expandtab
 
 set showcmd
-set foldmethod=syntax
+set foldmethod=manual
 set foldlevel=99
 set backspace=indent,eol,start
 set number
