@@ -139,11 +139,17 @@ noremap <C-F1> :source $MYVIMRC<CR>
 let mapleader=" "
 let maplocalleader="\\"
 
-" <F2> Copies current file/directory
+" <F2> Group
+" Get only the filename
 nnoremap <leader><F2> :let @* = expand("%")<CR>:echo @*<CR>
+" Get the absolute path of the directory (and not file)
 nnoremap <F2> :let @* = expand("%:p:h")<CR>:echo @*<CR>
-nnoremap <S-F2> :let @* = expand("%:p")<CR>:echo @*<CR>
+" Get the absolute path of the file
+nnoremap <C-F2> :let @* = expand("%:p")<CR>:echo @*<CR>
+" Show file in file explorer
 nnoremap <M-F2> :let @* = expand("%:p:h")<CR>:echo @*<CR>:silent !explorer.exe <c-r>*<cr>
+" Open the file in visual studio at the sample position
+nnoremap <S-F2> :silent execute '!gotoVisualStudio %:p ' . line('.') . ' ' . col('.')<CR>
 
 " Toggle line wrapping with the horizontal scrollbar
 nnoremap <silent><expr> <F4> ':set wrap! go'.'-+'[&wrap]."=b\r"
