@@ -108,6 +108,10 @@ augroup filetypedetect_customer
    " Open .py3 as python
    autocmd BufNewFile,BufRead *.py3 setl filetype=python
 
+   autocmd FileType Python set tabstop=3
+   autocmd FileType Python set softtabstop=3
+   autocmd FileType Python set shiftwidth=3
+
    " Autocomplete for .cs files
    autocmd FileType cs inoremap <C-space> <C-x><C-o><C-p>
 
