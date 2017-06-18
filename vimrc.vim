@@ -10,7 +10,7 @@ set softtabstop=3
 set expandtab
 
 set showcmd
-set foldmethod=syntax
+set foldmethod=manual
 set foldlevel=99
 set backspace=indent,eol,start
 set number
@@ -93,7 +93,7 @@ endif
 " Wrap navigation past beginning and end of a line
 set whichwrap+=<,>,h,l,[,]
 
-augroup filetypedetect_custom
+augroup filetypedetect_customer
    autocmd!
    " .md should be markdown not modula2
    autocmd BufNewFile,BufRead *.md setl ft=markdown
@@ -104,6 +104,13 @@ augroup filetypedetect_custom
 
    " Open .def as .cpp
    autocmd FileType def set filetype=cpp
+
+   " Open .py3 as python
+   autocmd BufNewFile,BufRead *.py3 setl filetype=python
+
+   autocmd FileType Python set tabstop=3
+   autocmd FileType Python set softtabstop=3
+   autocmd FileType Python set shiftwidth=3
 
    " Autocomplete for .cs files
    autocmd FileType cs inoremap <C-space> <C-x><C-o><C-p>
@@ -120,10 +127,7 @@ autocmd GUIEnter * simalt ~x
 
 " If a vim instance already has opened some file, go to that instance instead
 " of warning about an open file
-if !exists("editexistingloaded")
-   runtime! macros/editexisting.vim
-   let editexistingloaded = 1
-endif
+packadd! editexisting
 
 "=========
 " Mappings
@@ -139,11 +143,17 @@ noremap <C-F1> :source $MYVIMRC<CR>
 let mapleader=" "
 let maplocalleader="\\"
 
-" <F2> Copies current file/directory
+" <F2> Group
+" Get only the filename
 nnoremap <leader><F2> :let @* = expand("%")<CR>:echo @*<CR>
-nnoremap <F2> :let @* = expand("%:p:h")<CR>:echo @*<CR>
-nnoremap <S-F2> :let @* = expand("%:p")<CR>:echo @*<CR>
+" Get the absolute path of the directory (and not file)
+nnoremap <C-F2> :let @* = expand("%:p:h")<CR>:echo @*<CR>
+" Get the absolute path of the file
+nnoremap <F2> :let @* = expand("%:p")<CR>:echo @*<CR>
+" Show file in file explorer
 nnoremap <M-F2> :let @* = expand("%:p:h")<CR>:echo @*<CR>:silent !explorer.exe <c-r>*<cr>
+" Open the file in visual studio at the sample position
+nnoremap <S-F2> :silent execute '!gotoVisualStudio %:p ' . line('.') . ' ' . col('.')<CR>
 
 " Toggle line wrapping with the horizontal scrollbar
 nnoremap <silent><expr> <F4> ':set wrap! go'.'-+'[&wrap]."=b\r"
@@ -166,8 +176,11 @@ nnoremap <F8>y :let @*=substitute(substitute(@*, "^P:", "Y:", "g"), "^p:", "y:",
 command! Json %!python -m json.tool
 command! Hexify r !xxd %
 
+" <F9> Go to last error
+nnoremap <F9> :source C:\Reason\bin\last.vim<cr>
+
 " <F10> Vimgrep shortcuts
-" This is the best function in this file: regex search across multiple files
+" Regex search across multiple files
 function! RecursiveVimGrepOnSlashRegister(restrictToSource)
    let savedDir = getcwd()
    silent copen
@@ -230,7 +243,6 @@ inoremap <silent> <Down> <Esc>gja
 nnoremap <S-k> zo[zzz
 
 " Clear search highlights
-" WHICH ONE WILL WIN? YOU DECIDE!!!
 nnoremap <S-space> :nohlsearch<CR>
 vnoremap <S-space> <ESC>:nohlsearch<CR>
 
@@ -292,6 +304,10 @@ nnoremap <leader>O O<esc>
 " Turn a one line function into formatted multi line
 nnoremap <F7> ^mvf(v%:s/,\@<=\s\+/\r/g<cr>`vf(a<cr><esc>`vf(v%=`v:nohlsearch<cr>
 
+" Paste the system timestamp at cursor
+nnoremap <s-m-f> "=strftime("%c")<cr>p
+inoremap <s-m-f> <c-r>=strftime("%c")<cr>
+
 ""================
 "" Plugin-specific
 ""================
@@ -304,16 +320,11 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-surround'
+Plug 'kien/ctrlp.vim'
 
 Plug 'yegappan/mru'
 Plug 'vim-scripts/a.vim'
 Plug 'solarnz/thrift.vim'
-
-Plug 'tpope/vim-dispatch'
-Plug 'kien/ctrlp.vim'
-Plug 'scrooloose/syntastic'
-Plug 'OmniSharp/omnisharp-vim'
-" For installation of omnisharp: cd server/ and msbuild
 
 call plug#end()
 
