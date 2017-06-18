@@ -289,9 +289,6 @@ nnoremap <leader>i /export<cr>gnctrunk<esc>f/;lct;objects/export<esc>
 nnoremap <leader>o o<esc>
 nnoremap <leader>O O<esc>
 
-" <S-backspace> should delete back to underscore
-inoremap <s-backspace> <esc>vT_s
-
 " Turn a one line function into formatted multi line
 nnoremap <F7> ^mvf(v%:s/,\@<=\s\+/\r/g<cr>`vf(a<cr><esc>`vf(v%=`v:nohlsearch<cr>
 
@@ -350,8 +347,9 @@ nmap <F3> :topleft vsplit<cr><Plug>VinegarUp
 
 " Ctrlp:
 let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_root_markers = ['package']
+let g:ctrlp_root_markers = ['setupEnv.bat', '.git']
 
 " OmniSharp:
 " (and related)
 let g:syntastic_cs_checkers = ['syntax', 'semantic', 'issues']
+let g:syntastic_python_python_exec = 'C:\Program Files\Python35\python3.exe'
