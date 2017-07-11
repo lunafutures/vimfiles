@@ -281,7 +281,7 @@ vnoremap <m-k> 2<c-y>2<c-y>2<c-y>2<c-y>2<c-y>
 
 " Find and remove whitespace at end of lines
 nnoremap <leader>q /\s\+$<cr>
-nnoremap <leader>Q :%s///g<cr>
+nnoremap <leader>Q :TEXT///g<cr>
 
 " Move based on what's visually above rather than move up a line even if it
 " takes up multiple visual lines
@@ -292,7 +292,7 @@ nnoremap k gk
 vnoremap <c-a> Gogg
 
 " We never hit :wq intentionally so disable it with an cabbrev
-cabbrev wq echoerr "In this world, it's :w or be :q!'d!"
+cabbrev wq echoerr "In this world, it's :q or be :q!'d!"
 
 " Need to use objects/export instead of committed exports?
 nnoremap <leader>i /export<cr>gnctrunk<esc>f/;lct;objects/export<esc>
@@ -310,6 +310,64 @@ nnoremap <F7> ^mvf(v%:s/,\@<=\s\+/\r/g<cr>`vf(a<cr><esc>`vf(v%=`v:nohlsearch<cr>
 " Paste the system timestamp at cursor
 nnoremap <s-m-f> "=strftime("%c")<cr>p
 inoremap <s-m-f> <c-r>=strftime("%c")<cr>
+
+" Ripped from http://www.danielbigham.ca/cgi-bin/document.pl?mode=Display&DocumentID=1053
+" URL encode a string. ie. Percent-encode characters as necessary.
+function! UrlEncode(string)
+    let result = ""
+
+    let characters = split(a:string, '.\zs')
+    for character in characters
+        if character == " "
+            let result = result . "+"
+        elseif CharacterRequiresUrlEncoding(character)
+            let i = 0
+            while i < strlen(character)
+                let byte = strpart(character, i, 1)
+                let decimal = char2nr(byte)
+                let result = result . "%" . printf("%02x", decimal)
+                let i += 1
+            endwhile
+        else
+            let result = result . character
+        endif
+    endfor
+
+    return result
+
+endfunction
+
+" Returns 1 if the given character should be percent-encoded in a URL encoded
+" string.
+function! CharacterRequiresUrlEncoding(character)
+    let ascii_code = char2nr(a:character)
+    if ascii_code >= 48 && ascii_code <= 57
+        return 0
+    elseif ascii_code >= 65 && ascii_code <= 90
+        return 0
+    elseif ascii_code >= 97 && ascii_code <= 122
+        return 0
+    elseif a:character == "-" || a:character == "_" || a:character == "." || a:character == "~"
+        return 0
+    endif
+
+    return 1
+
+endfunction
+
+function! OpenURL(url)
+   let encoded = UrlEncode(@v)
+   echom encoded
+   let newURL = substitute(a:url, "TEXT", encoded, 0)
+   let command = "!cmd /cstart " . newURL
+   echom command
+   silent execute command
+endfunction
+
+vnoremap g.n "vy:call OpenURL("http://ngsourcebrowser:4110/#q=TEXT")<cr>
+vnoremap g.r "vy:call OpenURL("https://referencesource.microsoft.com/#q=TEXT")<cr>
+vnoremap g.c "vy:call OpenURL("http://codesearch/search/text?q=TEXT")<cr>
+vnoremap g.g "vy:call OpenURL("http://www.google.com/search?q=TEXT")<cr>
 
 ""================
 "" Plugin-specific
