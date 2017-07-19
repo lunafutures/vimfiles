@@ -125,6 +125,10 @@ augroup END
 " On Windows, open gvim maximized
 autocmd GUIEnter * simalt ~x
 
+" If a vim instance already has opened some file, go to that instance instead
+" of warning about an open file
+packadd! editexisting
+
 "=========
 " Mappings
 "=========
