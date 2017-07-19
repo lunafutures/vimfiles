@@ -325,9 +325,7 @@ function! UrlEncode(string)
             let result = result . character
         endif
     endfor
-
     return result
-
 endfunction
 
 " Returns 1 if the given character should be percent-encoded in a URL encoded
@@ -343,24 +341,24 @@ function! CharacterRequiresUrlEncoding(character)
     elseif a:character == "-" || a:character == "_" || a:character == "." || a:character == "~"
         return 0
     endif
-
     return 1
-
 endfunction
 
 function! OpenURL(url)
    let encoded = UrlEncode(@v)
    echom encoded
-   let newURL = substitute(a:url, "TEXT", encoded, 0)
-   let command = "!cmd /cstart " . newURL
+   let newURL = substitute(a:url, "XXX", encoded, 0)
+   let command = "!rundll32 url.dll,FileProtocolHandler " . newURL
    echom command
    silent execute command
 endfunction
 
-vnoremap g.n "vy:call OpenURL("http://ngsourcebrowser:4110/#q=TEXT")<cr>
-vnoremap g.r "vy:call OpenURL("https://referencesource.microsoft.com/#q=TEXT")<cr>
-vnoremap g.c "vy:call OpenURL("http://codesearch/search/text?q=TEXT")<cr>
-vnoremap g.g "vy:call OpenURL("http://www.google.com/search?q=TEXT")<cr>
+vnoremap g.r "vy:call OpenURL("https://referencesource.microsoft.com/#q=XXX")<cr>
+vnoremap g.g "vy:call OpenURL("http://www.google.com/search?q=XXX")<cr>
+vnoremap g.w "vy:call OpenURL("http://www.wolframalpha.com/input/?i=XXX")<cr>
+
+vnoremap g.n "vy:call OpenURL("http://ngsourcebrowser:4110/#q=XXX")<cr>
+vnoremap g.c "vy:call OpenURL("http://codesearch/search/text?q=XXX")<cr>
 
 ""================
 "" Plugin-specific
