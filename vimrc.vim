@@ -348,7 +348,10 @@ function! OpenURL(url)
    let encoded = UrlEncode(@v)
    echom encoded
    let newURL = substitute(a:url, "XXX", encoded, 0)
-   let command = "!rundll32 url.dll,FileProtocolHandler " . newURL
+
+   " Passing 1 to shell escape will escape !, #, which will then be striped
+   " away by the :!
+   let command = "!rundll32 url.dll,FileProtocolHandler " . shellescape(newURL, 1)
    echom command
    silent execute command
 endfunction
