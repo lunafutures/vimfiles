@@ -281,7 +281,7 @@ vnoremap <m-k> 2<c-y>2<c-y>2<c-y>2<c-y>2<c-y>
 
 " Find and remove whitespace at end of lines
 nnoremap <leader>q /\s\+$<cr>
-nnoremap <leader>Q :TEXT///g<cr>
+nnoremap <leader>Q :s///g<cr>
 
 " Move based on what's visually above rather than move up a line even if it
 " takes up multiple visual lines
