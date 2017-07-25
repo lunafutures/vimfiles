@@ -174,6 +174,7 @@ nnoremap <F8>\ :let @*=substitute(@*, "/", "\\", "g")<cr>:echo @*<cr>
 nnoremap <F8>y :let @*=substitute(substitute(@*, "^P:", "Y:", "g"), "^p:", "y:", "g")<cr>:echo @*<cr>
 
 command! Json %!python -m json.tool
+command! Nonono set nomodifiable | highlight Cursor guifg=white guibg=red
 command! Hexify r !xxd %
 
 " <F9> Go to last error
@@ -281,7 +282,7 @@ vnoremap <m-k> 2<c-y>2<c-y>2<c-y>2<c-y>2<c-y>
 
 " Find and remove whitespace at end of lines
 nnoremap <leader>q /\s\+$<cr>
-nnoremap <leader>Q :TEXT///g<cr>
+nnoremap <leader>Q :s///g<cr>
 
 " Move based on what's visually above rather than move up a line even if it
 " takes up multiple visual lines
