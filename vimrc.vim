@@ -368,6 +368,12 @@ vnoremap g.w "vy:call OpenURL("http://www.wolframalpha.com/input/?i=XXX")<cr>
 vnoremap g.n "vy:call OpenURL("http://ngsourcebrowser:4110/#q=XXX")<cr>
 vnoremap g.c "vy:call OpenURL("http://codesearch/search/text?q=XXX")<cr>
 
+" Shortcuts for common Ctrl-P commands
+" Open the filename under cursor in a regular split:
+nmap <leader>p <C-P><C-\>w<C-s>
+" Open the filename under cursor in a vsplit:
+nmap <leader>v <C-P><C-\>w<C-v>
+
 ""================
 "" Plugin-specific
 ""================
