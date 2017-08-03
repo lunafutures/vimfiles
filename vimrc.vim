@@ -433,8 +433,3 @@ nmap <F3> :topleft vsplit<cr><Plug>VinegarUp
 " Ctrlp:
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_root_markers = ['setupEnv.bat', '.git']
-
-" OmniSharp:
-" (and related)
-let g:syntastic_cs_checkers = ['syntax', 'semantic', 'issues']
-let g:syntastic_python_python_exec = 'C:\Program Files\Python35\python3.exe'
