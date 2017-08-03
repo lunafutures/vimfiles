@@ -174,8 +174,15 @@ nnoremap <F8>\ :let @*=substitute(@*, "/", "\\", "g")<cr>:echo @*<cr>
 nnoremap <F8>y :let @*=substitute(substitute(@*, "^P:", "Y:", "g"), "^p:", "y:", "g")<cr>:echo @*<cr>
 
 command! Json %!python -m json.tool
-command! Nonono set nomodifiable | highlight Cursor guifg=white guibg=red
 command! Hexify r !xxd %
+
+function! DisableAll()
+   highlight Cursor guifg=white guibg=red
+   silent bufdo set nomodifiable
+   autocmd BufNewFile,BufRead * setlocal nomodifiable
+endfunction
+
+command! Nonono :call DisableAll()
 
 " <F9> Go to last error
 nnoremap <F9> :source C:\Reason\bin\last.vim<cr>
@@ -282,7 +289,7 @@ vnoremap <m-k> 2<c-y>2<c-y>2<c-y>2<c-y>2<c-y>
 
 " Find and remove whitespace at end of lines
 nnoremap <leader>q /\s\+$<cr>
-nnoremap <leader>Q :s///g<cr>
+nnoremap <leader>Q :%s///g<cr>
 
 " Move based on what's visually above rather than move up a line even if it
 " takes up multiple visual lines
@@ -364,6 +371,7 @@ endfunction
 vnoremap g.r "vy:call OpenURL("https://referencesource.microsoft.com/#q=XXX")<cr>
 vnoremap g.g "vy:call OpenURL("http://www.google.com/search?q=XXX")<cr>
 vnoremap g.w "vy:call OpenURL("http://www.wolframalpha.com/input/?i=XXX")<cr>
+vnoremap g.m "vy:call OpenURL("https://www.google.com/search?q=site%3Ahttps%3A%2F%2Fmsdn.microsoft.com+c%23+XXX")<cr>
 
 vnoremap g.n "vy:call OpenURL("http://ngsourcebrowser:4110/#q=XXX")<cr>
 vnoremap g.c "vy:call OpenURL("http://codesearch/search/text?q=XXX")<cr>
