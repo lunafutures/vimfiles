@@ -169,6 +169,8 @@ function! ToggleJapaneseFont()
 endfunction
 nnoremap <F5> :call ToggleJapaneseFont()<cr>
 
+nnoremap <F6> :let @/="#region"<cr>nzz
+
 nnoremap <F8>/ :let @*=substitute(@*, "\\", "/", "g")<cr>:echo @*<cr>
 nnoremap <F8>\ :let @*=substitute(@*, "/", "\\", "g")<cr>:echo @*<cr>
 nnoremap <F8>y :let @*=substitute(substitute(@*, "^P:", "Y:", "g"), "^p:", "y:", "g")<cr>:echo @*<cr>
@@ -206,6 +208,7 @@ nnoremap <F10> :pwd<CR>
 nnoremap <S-F10> :cd ..<CR>:pwd<CR>
 nnoremap <C-F10> :call RecursiveVimGrepOnSlashRegister(0)<cr>
 nnoremap <C-M-F10> :call RecursiveVimGrepOnSlashRegister(1)<cr>
+nnoremap <leader><F10> :vimgrep//j % \| copen<cr>
 
 " Quickfix navigation for moving through grep entries
 nnoremap <M-n> :cnext<CR>
