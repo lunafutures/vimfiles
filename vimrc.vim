@@ -7,6 +7,7 @@ set nohidden
 set autoindent
 set shiftwidth=3
 set softtabstop=3
+set tabstop=3
 set expandtab
 
 set showcmd
@@ -218,16 +219,17 @@ nnoremap <M-S-n> :cprev<CR>
 nnoremap <M-C-F11> :!p4 edit %<CR><CR>
 inoremap <M-C-F11> <esc>:!p4 edit %<CR><CR>
 
-command! P4changes :below new | r !p4 changes -u jijin -s pending -l<cr>
+command! P4changes :below new | r !p4 changes -u jujin -s pending -l<cr>
 
 " C-backspace deletes previous word
 inoremap <C-BS> <C-W>
 cnoremap <C-BS> <C-W>
 
 " Quit faster
-nnoremap <S-Q> :quit<CR>
-vnoremap <S-Q> <esc>:quit<CR>
-nnoremap <leader><C-Q><C-Q> :qall<CR>
+nnoremap <C-W> :quit<CR>
+vnoremap <C-W> <esc>:quit<CR>
+
+nnoremap <S-Q> <C-W>
 
 " Static search, remap */# to be stationary until I press 'n' or something
 nnoremap <silent> # :let @/=escape(expand('<cword>'), '\')<cr>:silent set hls<cr>
@@ -313,7 +315,7 @@ nnoremap <leader>o o<esc>
 nnoremap <leader>O O<esc>
 
 " Turn a one line function into formatted multi line
-nnoremap <F7> ^mvf(v%:s/,\@<=\s\+/\r/g<cr>`vf(a<cr><esc>`vf(v%=`v:nohlsearch<cr>
+nnoremap <F7> ^mvf(v%:s/,\@<=\s\+/\r/g<cr>`vf(a<cr><esc>`vf(v%=gvoj<`v:nohlsearch<cr>
 
 " Paste the system timestamp at cursor
 nnoremap <s-m-f> "=strftime("%c")<cr>p
@@ -384,6 +386,8 @@ vnoremap g.c "vy:call OpenURL("http://codesearch/search/text?q=XXX")<cr>
 nmap <leader>p <C-P><C-\>w<C-s>
 " Open the filename under cursor in a vsplit:
 nmap <leader>v <C-P><C-\>w<C-v>
+" Open the filename under cursor in the current window:
+nmap <leader>o <C-P><C-\>w<cr>
 
 ""================
 "" Plugin-specific
