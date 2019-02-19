@@ -109,6 +109,9 @@ augroup filetypedetect_customer
    " Open .py3 as python
    autocmd BufNewFile,BufRead *.py3 setl filetype=python
 
+   " Open .automagic as javascript (close enough)
+   autocmd BufNewFile,BufRead *.automagic setl filetype=javascript
+
    autocmd FileType Python set tabstop=3
    autocmd FileType Python set softtabstop=3
    autocmd FileType Python set shiftwidth=3
