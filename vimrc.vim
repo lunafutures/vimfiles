@@ -222,7 +222,7 @@ nnoremap <M-C-F11> :!p4 edit %<CR><CR>
 inoremap <M-C-F11> <esc>:!p4 edit %<CR><CR>
 
 command! P4changes :below new | r !p4 changes -u jujin -s pending -l<cr>
-command! Piff :let filename=expand("%:p") | :leftabove new | set ft=diff | exec "r !p4 diff -db " . filename
+command! Piff :let filename=expand("%:p") | :leftabove new | set ft=diff | exec "r !p4 diff -db " . filename | execute 'w ' . tempname()
 
 " C-backspace deletes previous word
 inoremap <C-BS> <C-W>
