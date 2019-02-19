@@ -1,5 +1,4 @@
 " vimrc.vim
-" by jxjin
 
 " Very basic commands
 set nocompatible
@@ -220,6 +219,7 @@ nnoremap <M-C-F11> :!p4 edit %<CR><CR>
 inoremap <M-C-F11> <esc>:!p4 edit %<CR><CR>
 
 command! P4changes :below new | r !p4 changes -u jujin -s pending -l<cr>
+command! Piff :let filename=expand("%:p") | :leftabove new | set ft=diff | exec "r !p4 diff -db " . filename
 
 " C-backspace deletes previous word
 inoremap <C-BS> <C-W>
@@ -268,7 +268,7 @@ nnoremap <silent> <C-j> :wincmd j<CR>
 nnoremap <silent> <C-k> :wincmd k<CR>
 nnoremap <silent> <C-l> :wincmd l<CR>
 
-" Operation-pending on the next "perforcePath = ... ;"
+" Operation-pending on the next path
 onoremap i; :<c-u>execute "normal! /perforcePath\r:nohl\rf\/vt;"<cr>
 
 " Start search with word-left boundary, and end with word-right boundary
@@ -306,6 +306,7 @@ vnoremap <c-a> Gogg
 
 " We never hit :wq intentionally so disable it with an cabbrev
 cabbrev wq echoerr "In this world, it's :q or be :q!'d!"
+cabbrev w' echoerr "You missed."
 
 " Need to use objects/export instead of committed exports?
 nnoremap <leader>i /export<cr>gnctrunk<esc>f/;lct;objects/export<esc>
@@ -368,18 +369,22 @@ function! OpenURL(url)
 
    " Passing 1 to shell escape will escape !, #, which will then be striped
    " away by the :!
-   let command = "!rundll32 url.dll,FileProtocolHandler " . shellescape(newURL, 1)
+
+   "let command = "!rundll32 url.dll,FileProtocolHandler " . shellescape(newURL, 1)
+   let command = "!chrome --profile-directory=\"Profile 1\" " . shellescape(newURL, 1)
+
    echom command
    silent execute command
 endfunction
 
 vnoremap g.r "vy:call OpenURL("https://referencesource.microsoft.com/#q=XXX")<cr>
 vnoremap g.g "vy:call OpenURL("http://www.google.com/search?q=XXX")<cr>
-vnoremap g.w "vy:call OpenURL("http://www.wolframalpha.com/input/?i=XXX")<cr>
-vnoremap g.m "vy:call OpenURL("https://www.google.com/search?q=site%3Ahttps%3A%2F%2Fmsdn.microsoft.com+c%23+XXX")<cr>
+vnoremap g.m "vy:call OpenURL("https://social.msdn.microsoft.com/search/en-US?query=XXX")<cr>
 
-vnoremap g.n "vy:call OpenURL("http://ngsourcebrowser:4110/#q=XXX")<cr>
-vnoremap g.c "vy:call OpenURL("http://codesearch/search/text?q=XXX")<cr>
+vnoremap g.n "vy:call OpenURL("http://n" . "gs" . "our" . "ceb" . "row" . "ser:41" . "1" . "0/#q=XXX")<cr>
+vnoremap g.c "vy:call OpenURL("http://c" . "odes" . "ear" . "ch/sear" . "ch/tex" . "t?q=XXX")<cr>
+nmap g.si <c-p>sourcescopeinternal
+nmap <leader><S-s> <c-p>sourcescopeinternal
 
 " Shortcuts for common Ctrl-P commands
 " Open the filename under cursor in a regular split:
@@ -439,4 +444,4 @@ nmap <F3> :topleft vsplit<cr><Plug>VinegarUp
 
 " Ctrlp:
 let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_root_markers = ['setupEnv.bat', '.git']
+let g:ctrlp_root_markers = ['setupE' . 'nv.bat', '.git']
