@@ -234,6 +234,10 @@ vnoremap <C-W> <esc>:quit<CR>
 
 nnoremap <S-Q> <C-W>
 
+" Since <C-w> is mapped to <S-Q> it makes it harder to make windows equal
+" size. Here's a workaround.
+nnoremap <leader>= <C-W>=
+
 " Static search, remap */# to be stationary until I press 'n' or something
 nnoremap <silent> # :let @/=escape(expand('<cword>'), '\')<cr>:silent set hls<cr>
 nnoremap <silent> * :let @/='\<'.escape(expand('<cword>'), '\').'\>'<cr>:silent set hls<cr>
