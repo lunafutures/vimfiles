@@ -50,6 +50,9 @@ set directory=$HOME/vimfiles/tmp
 set undodir=$HOME/vimfiles/undo
 set undofile
 
+" Add < and > to matching using the % command
+set matchpairs+=<:>
+
 " Syntax Highlighting
 syntax on
 filetype plugin indent on
@@ -401,6 +404,12 @@ nmap <leader>v <C-P><C-\>w<C-v>
 " Open the filename under cursor in the current window:
 nmap <leader>o <C-P><C-\>w<cr>
 
+" Resize windows
+nnoremap <left> <C-W><
+nnoremap <right> <C-W>>
+nnoremap <up> <C-W>+
+nnoremap <down> <C-W>-
+
 ""================
 "" Plugin-specific
 ""================
@@ -432,6 +441,14 @@ call plug#end()
 nnoremap <F12> :A<CR>
 nnoremap <C-S-F12> :AS<CR>
 nnoremap <M-C-F12> :AV<CR>
+
+function! GoToModel()
+   let barename = expand("%:r:r")
+   let expandedName = barename . "Model.cs"
+   echo expandedName
+   execute "edit" expandedName
+endfunction
+nnoremap <C-F12> :call GoToModel()<cr>
 
 " EasyMotion: Easier jumping around
 " The leader approves of easymotion
