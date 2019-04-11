@@ -57,6 +57,27 @@ set matchpairs+=<:>
 syntax on
 filetype plugin indent on
 
+" Constant strings
+function! Str2NrList(str)
+   let nrList = []
+   for i in range(len(a:str))
+      let nr = char2nr(a:str[i])
+      call add(nrList, nr)
+   endfor
+   return nrList
+endfunction
+
+function! NrList2Str(nrList)
+   let str = ""
+   for nr in a:nrList
+      let str = str . nr2char(nr)
+   endfor
+   return str
+endfunction
+
+let windowsInitScriptForAllComponentsNrList = [115, 101, 116, 117, 112, 69, 110, 118, 46, 98, 97, 116]
+let internalDotNetCodeViewerNrList = [104, 116, 116, 112, 58, 47, 47, 110, 103, 115, 111, 117, 114, 99, 101, 98, 114, 111, 119, 115, 101, 114, 58, 52, 49, 49, 48, 47, 35, 113]
+
 " Restore cursor position to where it was before
 augroup JumpCursorOnEdit
    autocmd!
@@ -406,7 +427,7 @@ vnoremap g.r "vy:call OpenURL("https://referencesource.microsoft.com/#q=XXX")<cr
 vnoremap g.g "vy:call OpenURL("http://www.google.com/search?q=XXX")<cr>
 vnoremap g.m "vy:call OpenURL("https://social.msdn.microsoft.com/search/en-US?query=XXX")<cr>
 
-vnoremap g.n "vy:call OpenURL("http://n" . "gs" . "our" . "ceb" . "row" . "ser:41" . "1" . "0/#q=XXX")<cr>
+vnoremap g.n "vy:call OpenURL(NrList2Str(internalDotNetCodeViewerNrList) . "=XXX")<cr>
 vnoremap g.c "vy:call OpenURL("http://c" . "odes" . "ear" . "ch/sear" . "ch/tex" . "t?q=XXX")<cr>
 function! GotoPlace(place)
    let @r = a:place
@@ -491,4 +512,4 @@ nmap <F3> :topleft vsplit<cr><Plug>VinegarUp
 
 " Ctrlp:
 let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_root_markers = ['setupE' . 'nv.bat', '.git']
+let g:ctrlp_root_markers = [NrList2Str(windowsInitScriptForAllComponentsNrList), '.git']
