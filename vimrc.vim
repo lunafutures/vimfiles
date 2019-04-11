@@ -96,6 +96,20 @@ endif
 " Wrap navigation past beginning and end of a line
 set whichwrap+=<,>,h,l,[,]
 
+function! HighlightMatchingXMLTags()
+   let matchList = matchlist(getline("."), "^\\s\\+<\\S\\+")
+   if len(matchList) == 0
+      throw "Nothing found"
+      return
+   endif
+   let sub2 = substitute(matchList[0], "</", '<', '')
+   let sub1 = substitute(sub2, ">", '', '')
+   let sub = substitute(sub1, "<", '<\\/\\?', '')
+   let search = "^" . sub
+   let @/ = search
+   echo search
+endfunction
+
 augroup filetypedetect_customer
    autocmd!
    " .md should be markdown not modula2
@@ -104,6 +118,7 @@ augroup filetypedetect_customer
 
    " Open .xaml as .xml
    autocmd BufNewFile,BufRead *.xaml setl filetype=xml
+   autocmd BufNewFile,BufRead *.xaml nnoremap <buffer> <leader>, :call HighlightMatchingXMLTags()<CR>
 
    " Open .def as .cpp
    autocmd FileType def set filetype=cpp
@@ -138,7 +153,7 @@ packadd! editexisting
 "=========
 " Mappings
 "=========
-" &actualvimrc will contain the path of this script,
+" Variable actualvimrc will contain the path of this script,
 " and not the name of the file trying to source this script
 let actualvimrc = expand("<sfile>")
 let actualvimrcdir = expand("<sfile>:p:h")
@@ -393,8 +408,12 @@ vnoremap g.m "vy:call OpenURL("https://social.msdn.microsoft.com/search/en-US?qu
 
 vnoremap g.n "vy:call OpenURL("http://n" . "gs" . "our" . "ceb" . "row" . "ser:41" . "1" . "0/#q=XXX")<cr>
 vnoremap g.c "vy:call OpenURL("http://c" . "odes" . "ear" . "ch/sear" . "ch/tex" . "t?q=XXX")<cr>
-nmap g.si <c-p>sourcescopeinternal
-nmap <leader><S-s> <c-p>sourcescopeinternal
+function! GotoPlace(place)
+   let @r = a:place
+   execute "normal \<c-p>\<c-\>rr"
+endfunction
+nmap <leader><leader>s :call GotoPlace("sour" . "ces" . "cope" . "int" . "er" . "nal")<cr>
+nmap <leader><leader>v :call GotoPlace("sour" . "cev" . "p" . "sint" . "er" . "nal")<cr>
 
 " Shortcuts for common Ctrl-P commands
 " Open the filename under cursor in a regular split:
@@ -442,13 +461,17 @@ nnoremap <F12> :A<CR>
 nnoremap <C-S-F12> :AS<CR>
 nnoremap <M-C-F12> :AV<CR>
 
-function! GoToModel()
-   let barename = expand("%:r:r")
-   let expandedName = barename . "Model.cs"
-   echo expandedName
-   execute "edit" expandedName
+function! GoToModelOrView()
+   if expand("%") =~ "Model.cs"
+      let targetFilename = substitute(expand("%"), "Model.cs", ".xaml", "")
+   else
+      let barename = expand("%:r:r")
+      let targetFilename = barename . "Model.cs"
+   endif
+   echo targetFilename
+   execute "edit" targetFilename
 endfunction
-nnoremap <C-F12> :call GoToModel()<cr>
+nnoremap <C-F12> :call GoToModelOrView()<cr>
 
 " EasyMotion: Easier jumping around
 " The leader approves of easymotion
