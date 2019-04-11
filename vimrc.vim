@@ -120,7 +120,7 @@ set whichwrap+=<,>,h,l,[,]
 function! HighlightMatchingXMLTags()
    let matchList = matchlist(getline("."), "^\\s\\+<\\S\\+")
    if len(matchList) == 0
-      throw "Nothing found"
+      echoerr "No match found"
       return
    endif
    let sub2 = substitute(matchList[0], "</", '<', '')
