@@ -328,10 +328,20 @@ cnoremap <c-j> <down>
 " Also <c-w> for delete word and <c-u> for delete to start
 
 " Shift the window up and down
-nnoremap <m-j> 2<c-e>2<c-e>2<c-e>2<c-e>2<c-e>
-vnoremap <m-j> 2<c-e>2<c-e>2<c-e>2<c-e>2<c-e>
-nnoremap <m-k> 2<c-y>2<c-y>2<c-y>2<c-y>2<c-y>
-vnoremap <m-k> 2<c-y>2<c-y>2<c-y>2<c-y>2<c-y>
+function! Scroll(up, times)
+   for i in range(a:times)
+      if a:up == v:true
+         execute "normal \<c-y>"
+      else
+         execute "normal \<c-e>"
+      endif
+   endfor
+endfunction
+
+nnoremap <m-j> :call Scroll(v:false, 10)<CR>
+vnoremap <m-j> :call Scroll(v:false, 10)<CR>
+nnoremap <m-k> :call Scroll(v:true, 10)<CR>
+vnoremap <m-k> :call Scroll(v:true, 10)<CR>
 
 " Find and remove whitespace at end of lines
 nnoremap <leader>q /\s\+$<cr>
