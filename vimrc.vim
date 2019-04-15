@@ -213,7 +213,7 @@ nnoremap <F6> :let @/="#region"<cr>nzz
 
 nnoremap <F8>/ :let @*=substitute(@*, "\\", "/", "g")<cr>:echo @*<cr>
 nnoremap <F8>\ :let @*=substitute(@*, "/", "\\", "g")<cr>:echo @*<cr>
-nnoremap <F8>y :let @*=substitute(substitute(@*, "^P:", "Y:", "g"), "^p:", "y:", "g")<cr>:echo @*<cr>
+nnoremap <F8>y :echo "Undefined"<cr>
 
 command! Json %!python -m json.tool
 command! Hexify r !xxd %
@@ -225,9 +225,6 @@ function! DisableAll()
 endfunction
 
 command! Nonono :call DisableAll()
-
-" <F9> Go to last error
-nnoremap <F9> :source C:\Reason\bin\last.vim<cr>
 
 " <F10> Vimgrep shortcuts
 " Regex search across multiple files
@@ -352,8 +349,7 @@ vnoremap <c-a> Gogg
 cabbrev wq echoerr "In this world, it's :q or be :q!'d!"
 cabbrev w' echoerr "You missed."
 
-" Need to use objects/export instead of committed exports?
-nnoremap <leader>i /export<cr>gnctrunk<esc>f/;lct;objects/export<esc>
+nnoremap <leader>i :echo "Undefined"<cr>
 
 " New line but go back to normal, seems kind of pointless
 nnoremap <leader>o o<esc>
