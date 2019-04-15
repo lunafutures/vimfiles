@@ -75,8 +75,6 @@ function! NrList2Str(nrList)
    return str
 endfunction
 
-let windowsInitScriptForAllComponentsNrList = [115, 101, 116, 117, 112, 69, 110, 118, 46, 98, 97, 116]
-
 " Restore cursor position to where it was before
 augroup JumpCursorOnEdit
    autocmd!
