@@ -504,5 +504,3 @@ nmap <F3> :topleft vsplit<cr><Plug>VinegarUp
 " Ctrlp:
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_root_markers = []
-
-let g:great = 123
