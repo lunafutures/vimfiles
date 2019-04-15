@@ -76,7 +76,6 @@ function! NrList2Str(nrList)
 endfunction
 
 let windowsInitScriptForAllComponentsNrList = [115, 101, 116, 117, 112, 69, 110, 118, 46, 98, 97, 116]
-let internalDotNetCodeViewerNrList = [104, 116, 116, 112, 58, 47, 47, 110, 103, 115, 111, 117, 114, 99, 101, 98, 114, 111, 119, 115, 101, 114, 58, 52, 49, 49, 48, 47, 35, 113]
 
 " Restore cursor position to where it was before
 augroup JumpCursorOnEdit
@@ -125,8 +124,9 @@ function! HighlightMatchingXMLTags()
    endif
    let sub2 = substitute(matchList[0], "</", '<', '')
    let sub1 = substitute(sub2, ">", '', '')
-   let sub = substitute(sub1, "<", '<\\/\\?', '')
-   let search = "^" . sub
+   let subbed = substitute(sub1, "<", '<\\/\\?', '')
+   let angleIndex = strgetchar(subbed, '<')
+   let search = "^" . subbed
    let @/ = search
    echo search
 endfunction
@@ -427,15 +427,6 @@ vnoremap g.r "vy:call OpenURL("https://referencesource.microsoft.com/#q=XXX")<cr
 vnoremap g.g "vy:call OpenURL("http://www.google.com/search?q=XXX")<cr>
 vnoremap g.m "vy:call OpenURL("https://social.msdn.microsoft.com/search/en-US?query=XXX")<cr>
 
-vnoremap g.n "vy:call OpenURL(NrList2Str(internalDotNetCodeViewerNrList) . "=XXX")<cr>
-vnoremap g.c "vy:call OpenURL("http://c" . "odes" . "ear" . "ch/sear" . "ch/tex" . "t?q=XXX")<cr>
-function! GotoPlace(place)
-   let @r = a:place
-   execute "normal \<c-p>\<c-\>rr"
-endfunction
-nmap <leader><leader>s :call GotoPlace("sour" . "ces" . "cope" . "int" . "er" . "nal")<cr>
-nmap <leader><leader>v :call GotoPlace("sour" . "cev" . "p" . "sint" . "er" . "nal")<cr>
-
 " Shortcuts for common Ctrl-P commands
 " Open the filename under cursor in a regular split:
 nmap <leader>p <C-P><C-\>w<C-s>
@@ -512,4 +503,6 @@ nmap <F3> :topleft vsplit<cr><Plug>VinegarUp
 
 " Ctrlp:
 let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_root_markers = [NrList2Str(windowsInitScriptForAllComponentsNrList), '.git']
+let g:ctrlp_root_markers = []
+
+let g:great = 123
