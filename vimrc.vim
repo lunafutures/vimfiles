@@ -53,6 +53,8 @@ set undofile
 " Add < and > to matching using the % command
 set matchpairs+=<:>
 
+let g:devolutionMessage = "Devolved command not defined."
+
 " Syntax Highlighting
 syntax on
 filetype plugin indent on
@@ -213,7 +215,7 @@ nnoremap <F6> :let @/="#region"<cr>nzz
 
 nnoremap <F8>/ :let @*=substitute(@*, "\\", "/", "g")<cr>:echo @*<cr>
 nnoremap <F8>\ :let @*=substitute(@*, "/", "\\", "g")<cr>:echo @*<cr>
-nnoremap <F8>y :echo "Undefined"<cr>
+nnoremap <F8>y :echoerr g:devolutionMessage<cr>
 
 command! Json %!python -m json.tool
 command! Hexify r !xxd %
@@ -359,7 +361,7 @@ vnoremap <c-a> Gogg
 cabbrev wq echoerr "In this world, it's :q or be :q!'d!"
 cabbrev w' echoerr "You missed."
 
-nnoremap <leader>i :echo "Undefined"<cr>
+nnoremap <leader>i :echoerr g:devolutionMessage<cr>
 
 " New line but go back to normal, seems kind of pointless
 nnoremap <leader>o o<esc>
