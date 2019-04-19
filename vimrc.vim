@@ -417,7 +417,6 @@ endfunction
 
 function! OpenURL(url)
    let encoded = UrlEncode(@v)
-   echom encoded
    let newURL = substitute(a:url, "XXX", encoded, 0)
 
    " Passing 1 to shell escape will escape !, #, which will then be striped
@@ -426,8 +425,8 @@ function! OpenURL(url)
    "let command = "!rundll32 url.dll,FileProtocolHandler " . shellescape(newURL, 1)
    let command = "!chrome --profile-directory=\"Profile 1\" " . shellescape(newURL, 1)
 
-   echom command
    silent execute command
+   echom command
 endfunction
 
 vnoremap g.r "vy:call OpenURL("https://referencesource.microsoft.com/#q=XXX")<cr>
