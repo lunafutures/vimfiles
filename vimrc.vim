@@ -196,6 +196,7 @@ nnoremap <F2> :let @* = expand("%:p")<CR>:echo @*<CR>
 nnoremap <M-F2> :let @* = expand("%:p:h")<CR>:echo @*<CR>:silent !explorer.exe <c-r>*<cr>
 " Open the file in visual studio at the sample position
 nnoremap <S-F2> :silent execute '!gotoVisualStudio %:p ' . line('.') . ' ' . col('.')<CR>
+nnoremap <C-S-F2> :echoerr g:devolutionMessage<cr>
 
 " Toggle line wrapping with the horizontal scrollbar
 nnoremap <silent><expr> <F4> ':set wrap! go'.'-+'[&wrap]."=b\r"
