@@ -231,23 +231,32 @@ command! Nonono :call DisableAll()
 
 " <F10> Vimgrep shortcuts
 " Regex search across multiple files
-function! RecursiveVimGrepOnSlashRegister(restrictToSource)
+function! RecursiveVimGrepOnSlashRegister(restrictToSource, useNative)
    let savedDir = getcwd()
    silent copen
    execute "cd" savedDir
-   " Grep on whatever's in the / register,
-   " don't jump to the first result (/j)
+
    if a:restrictToSource
-      vimgrep//j * source/**
+      if a:useNative
+         execute "grep /s /i \"" . @/ . "\" source/*"
+      else
+         " Grep on whatever's in the / register,
+         " don't jump to the first result (/j)
+         vimgrep//j * source/**
+      endif
    else
-      vimgrep//j **
+      if a:useNative
+         execute "grep /s /i \"" . @/ . "\" *"
+      else
+         vimgrep//j **
+      endif
    endif
 endfunction
 
 nnoremap <F10> :pwd<CR>
 nnoremap <S-F10> :cd ..<CR>:pwd<CR>
-nnoremap <C-F10> :call RecursiveVimGrepOnSlashRegister(0)<cr>
-nnoremap <C-M-F10> :call RecursiveVimGrepOnSlashRegister(1)<cr>
+nnoremap <C-F10> :call RecursiveVimGrepOnSlashRegister(v:false, v:true)<cr>
+nnoremap <C-M-F10> :call RecursiveVimGrepOnSlashRegister(v:true, v:true)<cr>
 nnoremap <leader><F10> :vimgrep//j % \| copen<cr>
 
 " Quickfix navigation for moving through grep entries
