@@ -339,21 +339,11 @@ cnoremap <c-j> <down>
 " Don't forget about <c-b> and <c-e> for beginning and end
 " Also <c-w> for delete word and <c-u> for delete to start
 
-" Shift the window up and down
-function! Scroll(up, times)
-   for i in range(a:times)
-      if a:up == v:true
-         execute "normal \<c-y>"
-      else
-         execute "normal \<c-e>"
-      endif
-   endfor
-endfunction
-
-nnoremap <m-j> :call Scroll(v:false, 10)<CR>
-vnoremap <m-j> :call Scroll(v:false, 10)<CR>
-nnoremap <m-k> :call Scroll(v:true, 10)<CR>
-vnoremap <m-k> :call Scroll(v:true, 10)<CR>
+let s:linesToScroll = 10
+execute "nnoremap <m-j> " . s:linesToScroll . "\<c-e>"
+execute "vnoremap <m-j> " . s:linesToScroll . "\<c-e>"
+execute "nnoremap <m-k> " . s:linesToScroll . "\<c-y>"
+execute "vnoremap <m-k> " . s:linesToScroll . "\<c-y>"
 
 " Find and remove whitespace at end of lines
 nnoremap <leader>q /\s\+$<cr>
