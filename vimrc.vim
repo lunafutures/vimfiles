@@ -231,23 +231,32 @@ command! Nonono :call DisableAll()
 
 " <F10> Vimgrep shortcuts
 " Regex search across multiple files
-function! RecursiveVimGrepOnSlashRegister(restrictToSource)
+function! RecursiveVimGrepOnSlashRegister(restrictToSource, useNative)
    let savedDir = getcwd()
    silent copen
    execute "cd" savedDir
-   " Grep on whatever's in the / register,
-   " don't jump to the first result (/j)
+
    if a:restrictToSource
-      vimgrep//j * source/**
+      if a:useNative
+         execute "grep /s /i \"" . @/ . "\" source/*"
+      else
+         " Grep on whatever's in the / register,
+         " don't jump to the first result (/j)
+         vimgrep//j * source/**
+      endif
    else
-      vimgrep//j **
+      if a:useNative
+         execute "grep /s /i \"" . @/ . "\" *"
+      else
+         vimgrep//j **
+      endif
    endif
 endfunction
 
 nnoremap <F10> :pwd<CR>
 nnoremap <S-F10> :cd ..<CR>:pwd<CR>
-nnoremap <C-F10> :call RecursiveVimGrepOnSlashRegister(0)<cr>
-nnoremap <C-M-F10> :call RecursiveVimGrepOnSlashRegister(1)<cr>
+nnoremap <C-F10> :call RecursiveVimGrepOnSlashRegister(v:false, v:true)<cr>
+nnoremap <C-M-F10> :call RecursiveVimGrepOnSlashRegister(v:true, v:true)<cr>
 nnoremap <leader><F10> :vimgrep//j % \| copen<cr>
 
 " Quickfix navigation for moving through grep entries
@@ -330,21 +339,11 @@ cnoremap <c-j> <down>
 " Don't forget about <c-b> and <c-e> for beginning and end
 " Also <c-w> for delete word and <c-u> for delete to start
 
-" Shift the window up and down
-function! Scroll(up, times)
-   for i in range(a:times)
-      if a:up == v:true
-         execute "normal \<c-y>"
-      else
-         execute "normal \<c-e>"
-      endif
-   endfor
-endfunction
-
-nnoremap <m-j> :call Scroll(v:false, 10)<CR>
-vnoremap <m-j> :call Scroll(v:false, 10)<CR>
-nnoremap <m-k> :call Scroll(v:true, 10)<CR>
-vnoremap <m-k> :call Scroll(v:true, 10)<CR>
+let s:linesToScroll = 10
+execute "nnoremap <m-j> " . s:linesToScroll . "\<c-e>"
+execute "vnoremap <m-j> " . s:linesToScroll . "\<c-e>"
+execute "nnoremap <m-k> " . s:linesToScroll . "\<c-y>"
+execute "vnoremap <m-k> " . s:linesToScroll . "\<c-y>"
 
 " Find and remove whitespace at end of lines
 nnoremap <leader>q /\s\+$<cr>
@@ -510,3 +509,4 @@ nmap <F3> :topleft vsplit<cr><Plug>VinegarUp
 " Ctrlp:
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_root_markers = []
+nnoremap <leader><S-M> :CtrlPMRU<CR>
