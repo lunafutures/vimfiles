@@ -462,7 +462,7 @@ Plug 'tpope/vim-surround'
 Plug 'kien/ctrlp.vim'
 
 Plug 'yegappan/mru'
-Plug 'vim-scripts/a.vim'
+Plug 'jxjin/a.vim'
 Plug 'solarnz/thrift.vim'
 
 call plug#end()
