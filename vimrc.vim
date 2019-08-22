@@ -193,7 +193,7 @@ nnoremap <C-F2> :let @* = expand("%:p:h")<CR>:echo @*<CR>
 " Get the absolute path of the file
 nnoremap <F2> :let @* = expand("%:p")<CR>:echo @*<CR>
 " Show file in file explorer
-nnoremap <M-F2> :let @* = expand("%:p:h")<CR>:echo @*<CR>:silent !explorer.exe <c-r>*<cr>
+nnoremap <M-F2> :execute '!explorer.exe /select,' . expand("%")<cr>
 " Open the file in visual studio at the sample position
 nnoremap <S-F2> :silent execute '!gotoVisualStudio %:p ' . line('.') . ' ' . col('.')<CR>
 nnoremap <C-S-F2> :echoerr g:devolutionMessage<cr>
