@@ -131,7 +131,7 @@ function! HighlightMatchingXMLTags()
    echo search
 endfunction
 
-augroup filetypedetect_customer
+augroup filetypedetect_this
    autocmd!
    " .md should be markdown not modula2
    autocmd BufNewFile,BufRead *.md setl ft=markdown
@@ -162,6 +162,9 @@ augroup filetypedetect_customer
 
    " Set filetype to Configuration file
    autocmd BufNewFile,BufRead package set ft=conf
+
+   " Open terminal logs with ColorToggle
+   autocmd BufRead *.log ColorToggle
 augroup END
 
 " On Windows, open gvim maximized
@@ -255,8 +258,8 @@ endfunction
 
 nnoremap <F10> :pwd<CR>
 nnoremap <S-F10> :cd ..<CR>:pwd<CR>
-nnoremap <C-F10> :call RecursiveVimGrepOnSlashRegister(v:false, v:true)<cr>
-nnoremap <C-M-F10> :call RecursiveVimGrepOnSlashRegister(v:true, v:true)<cr>
+nnoremap <C-F10> :call RecursiveVimGrepOnSlashRegister(v:false, v:false)<cr>
+nnoremap <C-M-F10> :call RecursiveVimGrepOnSlashRegister(v:true, v:false)<cr>
 nnoremap <leader><F10> :vimgrep//j % \| copen<cr>
 
 " Quickfix navigation for moving through grep entries
@@ -463,6 +466,7 @@ Plug 'kien/ctrlp.vim'
 Plug 'yegappan/mru'
 Plug 'jxjin/a.vim'
 Plug 'solarnz/thrift.vim'
+Plug 'chrisbra/Colorizer'
 
 call plug#end()
 
