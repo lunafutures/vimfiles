@@ -1,4 +1,5 @@
 " vimrc.vim
+" Note for ubuntu, first install packages: git vim vim-gtk3 curl
 
 " Very basic commands
 set nocompatible
@@ -18,9 +19,15 @@ set cursorline
 set splitbelow
 set splitright
 
-set fileformats=dos
-set shell=cmd.exe
-set shellcmdflag=/c
+if has('win32')
+   set fileformats=dos
+   set shell=cmd.exe
+   set shellcmdflag=/c
+elseif has('unix')
+   set fileformats=unix
+   set shell=bash
+   set shellcmdflag=-c
+endif
 
 " Automatically reload the file if it's been changed externally
 set autoread
@@ -43,11 +50,17 @@ set hlsearch
 " Don't clutter up directories with .swp files,
 " put them in special directories
 set backup
-set backupdir=$HOME/vimfiles/backup
-set directory=$HOME/vimfiles/tmp
+
+if has('win32')
+   set backupdir=$HOME/vimfiles/backup
+   set directory=$HOME/vimfiles/tmp
+elseif has('unix')
+   set backupdir=$HOME/.vim/backup
+   set directory=$HOME/.vim/tmp
+endif
 
 " Turn on persistent undo
-set undodir=$HOME/vimfiles/undo
+set undodir=$HOME/.vim/undo
 set undofile
 
 " Add < and > to matching using the % command
@@ -110,7 +123,12 @@ set laststatus=2
 if has("gui_running")
    set guioptions-=T " Remove toolbar
    set guioptions-=m " Remove menu
-   set guifont=Consolas:h8
+
+   if has('win32')
+      set guifont=Consolas:h8
+      " On Windows, open gvim maximized
+      autocmd GUIEnter * simalt ~x
+   endif
 endif
 
 " Wrap navigation past beginning and end of a line
@@ -166,9 +184,6 @@ augroup filetypedetect_this
    " Open terminal logs with ColorToggle
    autocmd BufRead *.log ColorToggle
 augroup END
-
-" On Windows, open gvim maximized
-autocmd GUIEnter * simalt ~x
 
 " If a vim instance already has opened some file, go to that instance instead
 " of warning about an open file
@@ -452,6 +467,12 @@ nnoremap <down> <C-W>-
 ""================
 "" Plugin-specific
 ""================
+
+if has('unix') && empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
 " Install packages into 'plugged' directory
 call plug#begin(actualvimrcdir . '\plugged')

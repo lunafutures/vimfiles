@@ -4,6 +4,7 @@ backup/
 tmp/
 undo/
 plugged/
+autoload/plug.vim
 
 #################
 ## Eclipse
