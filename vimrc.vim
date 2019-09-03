@@ -182,7 +182,7 @@ augroup filetypedetect_this
    autocmd BufNewFile,BufRead package set ft=conf
 
    " Open terminal logs with ColorToggle
-   autocmd BufRead *.log ColorToggle
+   autocmd BufRead *.log color evening | ColorToggle 
 augroup END
 
 " If a vim instance already has opened some file, go to that instance instead
@@ -235,6 +235,7 @@ nnoremap <F6> :let @/="#region"<cr>nzz
 nnoremap <F8>/ :let @*=substitute(@*, "\\", "/", "g")<cr>:echo @*<cr>
 nnoremap <F8>\ :let @*=substitute(@*, "/", "\\", "g")<cr>:echo @*<cr>
 nnoremap <F8>y :echoerr g:devolutionMessage<cr>
+nnoremap <leader><F8> :execute "saveas $TEMP/" . strftime("Y%Y-M%m-d%d-%Hh-%Mm-%Ss") . ".txt"<cr>
 
 command! Json %!python -m json.tool
 command! Hexify r !xxd %
