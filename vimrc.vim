@@ -182,7 +182,7 @@ augroup filetypedetect_this
    autocmd BufNewFile,BufRead package set ft=conf
 
    " Open terminal logs with ColorToggle
-   autocmd BufRead *.log color evening | ColorToggle 
+   autocmd BufRead *.log color evening | ColorToggle
 augroup END
 
 " If a vim instance already has opened some file, go to that instance instead
