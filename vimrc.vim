@@ -149,28 +149,31 @@ function! HighlightMatchingXMLTags()
    echo search
 endfunction
 
-augroup filetypedetect_this
+let g:spacesForPython=4
+
+" Type ":autocmd vimrc" to check that your settings have committed.
+augroup vimrc
    autocmd!
    " .md should be markdown not modula2
-   autocmd BufNewFile,BufRead *.md setl ft=markdown
+   autocmd BufNewFile,BufRead *.md setlocal ft=markdown
    autocmd FileType markdown set spell
 
    " Open .xaml as .xml
-   autocmd BufNewFile,BufRead *.xaml setl filetype=xml
+   autocmd BufNewFile,BufRead *.xaml setlocal filetype=xml
    autocmd BufNewFile,BufRead *.xaml nnoremap <buffer> <leader>, :call HighlightMatchingXMLTags()<CR>
 
    " Open .def as .cpp
    autocmd FileType def set filetype=cpp
 
-   " Open .py3 as python
-   autocmd BufNewFile,BufRead *.py3 setl filetype=python
-
    " Open .automagic as javascript (close enough)
-   autocmd BufNewFile,BufRead *.automagic setl filetype=javascript
+   autocmd BufNewFile,BufRead *.automagic setlocal filetype=javascript
 
-   autocmd FileType Python set tabstop=3
-   autocmd FileType Python set softtabstop=3
-   autocmd FileType Python set shiftwidth=3
+   " Open .py3 as python
+   autocmd BufNewFile,BufRead *.py3 setlocal filetype=python
+
+   execute "autocmd FileType Python setlocal tabstop=" . g:spacesForPython
+   execute "autocmd FileType Python setlocal softtabstop=" . g:spacesForPython
+   execute "autocmd FileType Python setlocal shiftwidth=" . g:spacesForPython
 
    " Autocomplete for .cs files
    autocmd FileType cs inoremap <C-space> <C-x><C-o><C-p>
