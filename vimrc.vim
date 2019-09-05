@@ -524,7 +524,7 @@ vmap <leader> <Plug>(easymotion-prefix)
 " MRU: Remembers where I was
 let MRU_Max_Entries = 5000
 " Shortcut to open MRU
-nnoremap <leader>m :MRU<cr>
+nnoremap <leader><S-M> :MRU<cr>
 
 " Airline:
 let g:airline_theme="light"
@@ -535,4 +535,4 @@ nmap <F3> :topleft vsplit<cr><Plug>VinegarUp
 " Ctrlp:
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_root_markers = []
-nnoremap <leader><S-M> :CtrlPMRU<CR>
+nnoremap <leader>m :CtrlPMRU<CR>
