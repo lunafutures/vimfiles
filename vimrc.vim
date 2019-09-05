@@ -19,6 +19,8 @@ set cursorline
 set splitbelow
 set splitright
 
+colorscheme ron
+
 if has('win32')
    set fileformats=dos
    set shell=cmd.exe
@@ -185,7 +187,7 @@ augroup vimrc
    autocmd BufNewFile,BufRead package set ft=conf
 
    " Open terminal logs with ColorToggle
-   autocmd BufRead *.log color evening | ColorToggle
+   autocmd BufRead *.log ColorToggle
 augroup END
 
 " If a vim instance already has opened some file, go to that instance instead
@@ -530,7 +532,7 @@ let MRU_Max_Entries = 5000
 nnoremap <leader><S-M> :MRU<cr>
 
 " Airline:
-let g:airline_theme="light"
+let g:airline_theme="dark"
 
 " Vinegar:
 nmap <F3> :topleft vsplit<cr><Plug>VinegarUp
