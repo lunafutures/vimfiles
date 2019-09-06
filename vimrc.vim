@@ -188,6 +188,8 @@ augroup vimrc
 
    " Open terminal logs with ColorToggle
    autocmd BufRead *.log ColorToggle
+
+   autocmd BufEnter * call CheckModifiable()
 augroup END
 
 " If a vim instance already has opened some file, go to that instance instead
@@ -244,14 +246,15 @@ nnoremap <leader><F8> :execute "saveas $TEMP/" . strftime("Y%Y-M%m-d%d-%Hh-%Mm-%
 
 command! Json %!python -m json.tool
 command! Hexify r !xxd %
+command! No set nomodifiable | call CheckModifiable()
 
-function! DisableAll()
-   highlight Cursor guifg=white guibg=red
-   silent bufdo set nomodifiable
-   autocmd BufNewFile,BufRead * setlocal nomodifiable
+function! CheckModifiable()
+   if &modifiable==?0
+      highlight Cursor guifg=white guibg=red
+   else
+      highlight Cursor guifg=black guibg=yellow
+   endif
 endfunction
-
-command! Nonono :call DisableAll()
 
 " <F10> Vimgrep shortcuts
 " Regex search across multiple files
