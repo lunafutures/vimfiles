@@ -19,7 +19,7 @@ set cursorline
 set splitbelow
 set splitright
 
-colorscheme ron
+colorscheme darkblue
 
 if has('win32')
    set fileformats=dos
