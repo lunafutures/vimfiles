@@ -19,7 +19,8 @@ set cursorline
 set splitbelow
 set splitright
 
-colorscheme darkblue
+let g:selectedColorScheme = "darkblue"
+execute "colorscheme" g:selectedColorScheme
 
 if has('win32')
    set fileformats=dos
@@ -247,12 +248,14 @@ nnoremap <leader><F8> :execute "saveas $TEMP/" . strftime("Y%Y-M%m-d%d-%Hh-%Mm-%
 command! Json %!python -m json.tool
 command! Hexify r !xxd %
 command! No set nomodifiable | call CheckModifiable()
+command! YeahSureWhyNot set modifiable | call CheckModifiable()
 
 function! CheckModifiable()
    if &modifiable==?0
       highlight Cursor guifg=white guibg=red
    else
-      highlight Cursor guifg=black guibg=yellow
+      " Go back to the default
+      execute "colorscheme" g:selectedColorScheme
    endif
 endfunction
 
