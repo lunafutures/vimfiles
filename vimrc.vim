@@ -493,6 +493,9 @@ Plug 'easymotion/vim-easymotion'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-vinegar'
+" Tips for vim-surround:
+" * ds + surrounding character inside of a surrounder in order to remove it
+" * Use visual mode to select the text you want, then press `S` + surrounding character to surround.
 Plug 'tpope/vim-surround'
 Plug 'kien/ctrlp.vim'
 
@@ -535,7 +538,7 @@ vmap <leader> <Plug>(easymotion-prefix)
 " MRU: Remembers where I was
 let MRU_Max_Entries = 5000
 " Shortcut to open MRU
-nnoremap <leader><S-M> :MRU<cr>
+nnoremap <leader><S-M> :MRU<cr>/
 
 " Airline:
 let g:airline_theme="dark"
