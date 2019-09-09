@@ -253,7 +253,7 @@ command! YeahSureWhyNot set modifiable | call CheckModifiable()
 function! CheckModifiable()
    if &modifiable==?0
       highlight Cursor guifg=white guibg=red
-   else
+   elseif g:colors_name!=?'darkblue'
       " Go back to the default
       execute "colorscheme" g:selectedColorScheme
    endif
