@@ -19,9 +19,6 @@ set cursorline
 set splitbelow
 set splitright
 
-let g:selectedColorScheme = "darkblue"
-execute "colorscheme" g:selectedColorScheme
-
 if has('win32')
    set fileformats=dos
    set shell=cmd.exe
@@ -128,7 +125,7 @@ if has("gui_running")
    set guioptions-=m " Remove menu
 
    if has('win32')
-      set guifont=Consolas:h8
+      set guifont=Consolas:h9
       " On Windows, open gvim maximized
       autocmd GUIEnter * simalt ~x
    endif
@@ -492,6 +489,7 @@ Plug 'yegappan/mru'
 Plug 'jxjin/a.vim'
 Plug 'solarnz/thrift.vim'
 Plug 'chrisbra/Colorizer'
+Plug 'morhetz/gruvbox'
 
 call plug#end()
 
@@ -500,6 +498,9 @@ call plug#end()
 " :PlugUpdate to install or update
 " :PlugClean to remove unused
 " :PlugStatus
+"
+let g:selectedColorScheme = "gruvbox"
+execute "colorscheme" g:selectedColorScheme
 
 " a.vim:
 " <F12> Switch from header file to .c/.cpp
