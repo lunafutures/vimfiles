@@ -531,7 +531,7 @@ let MRU_Max_Entries = 5000
 nnoremap <leader><S-M> :MRU<cr>/
 
 " Airline:
-let g:airline_theme="dark"
+AirlineTheme deus
 
 " Vinegar:
 nmap <F3> :topleft vsplit<cr><Plug>VinegarUp
