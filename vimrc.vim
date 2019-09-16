@@ -337,8 +337,9 @@ nnoremap <silent> <C-j> :wincmd j<CR>
 nnoremap <silent> <C-k> :wincmd k<CR>
 nnoremap <silent> <C-l> :wincmd l<CR>
 
-" Operation-pending on the next path
-onoremap i; :<c-u>execute "normal! /perforcePath\r:nohl\rf\/vt;"<cr>
+" Reserve <leader>8 and i;
+nnoremap <leader>8 :echoerr g:devolutionMessage<cr>
+onoremap i; :echoerr g:devolutionMessage<cr>
 
 " Start search with word-left boundary, and end with word-right boundary
 nnoremap <leader>/ /\<
