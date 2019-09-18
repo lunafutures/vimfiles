@@ -220,6 +220,8 @@ nnoremap <M-F2> :silent execute '!explorer.exe /select,' . expand("%")<cr>
 nnoremap <S-F2> :silent execute '!gotoVisualStudio %:p ' . line('.') . ' ' . col('.')<CR>
 nnoremap <C-S-F2> :echoerr g:devolutionMessage<cr>
 
+nnoremap <leader>2 :let @*=expand("%:p") . ':' . line('.')<cr>:echo @*<cr>
+
 " Toggle line wrapping with the horizontal scrollbar
 nnoremap <silent><expr> <F4> ':set wrap! go'.'-+'[&wrap]."=b\r"
 
@@ -520,6 +522,9 @@ function! GoToModelOrView()
    execute "edit" targetFilename
 endfunction
 nnoremap <C-F12> :call GoToModelOrView()<cr>
+
+" Copy all into the clipboard
+nnoremap <leader><F12> gg<S-V>G"*y
 
 " EasyMotion: Easier jumping around
 " The leader approves of easymotion
