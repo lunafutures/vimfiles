@@ -187,6 +187,7 @@ augroup vimrc
    " Open terminal logs with ColorToggle
    autocmd BufRead *.log ColorToggle
 
+   autocmd BufNewFile,BufRead *o.txt setlocal ft=notes
 augroup END
 
 " If a vim instance already has opened some file, go to that instance instead
@@ -493,6 +494,9 @@ Plug 'jxjin/a.vim'
 Plug 'solarnz/thrift.vim'
 Plug 'chrisbra/Colorizer'
 Plug 'morhetz/gruvbox'
+
+Plug 'xolox/vim-notes'
+Plug 'xolox/vim-misc'
 
 call plug#end()
 
