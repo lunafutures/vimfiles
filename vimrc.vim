@@ -466,6 +466,9 @@ nnoremap <right> <C-W>>
 nnoremap <up> <C-W>+
 nnoremap <down> <C-W>-
 
+" Paste from 0 AKA "yank-text-register" and won't work for deletes
+nnoremap <leader>0 "0p
+
 ""================
 "" Plugin-specific
 ""================
