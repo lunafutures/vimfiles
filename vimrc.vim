@@ -244,7 +244,7 @@ nnoremap <F8>\ :let @*=substitute(@*, "/", "\\", "g")<cr>:echo @*<cr>
 nnoremap <F8>y :echoerr g:devolutionMessage<cr>
 nnoremap <leader><F8> :execute "saveas $TEMP/" . strftime("Y%Y-M%m-d%d-%Hh-%Mm-%Ss") . ".txt"<cr>
 
-command! Json %!python -m json.tool
+command! Json %!py -m json.tool
 command! Hexify r !xxd %
 command! No set nomodifiable
 
