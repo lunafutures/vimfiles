@@ -242,7 +242,10 @@ nnoremap <F6> :let @/="#region"<cr>nzz
 nnoremap <F8>/ :let @*=substitute(@*, "\\", "/", "g")<cr>:echo @*<cr>
 nnoremap <F8>\ :let @*=substitute(@*, "/", "\\", "g")<cr>:echo @*<cr>
 nnoremap <F8>y :echoerr g:devolutionMessage<cr>
-nnoremap <leader><F8> :execute "saveas $TEMP/" . strftime("Y%Y-M%m-d%d-%Hh-%Mm-%Ss") . ".txt"<cr>
+function! SaveTemp()
+   execute "saveas $TEMP/" . strftime("Y%Y-M%m-d%d-%Hh-%Mm-%Ss") . ".txt"
+endfunction
+nnoremap <leader><F8> :call SaveTemp()<cr>
 
 command! Json %!py -m json.tool
 command! Hexify r !xxd %
@@ -459,12 +462,6 @@ nmap <leader>p <C-P><C-\>w<C-s>
 nmap <leader>v <C-P><C-\>w<C-v>
 " Open the filename under cursor in the current window:
 nmap <leader>o <C-P><C-\>w<cr>
-
-" Resize windows
-nnoremap <left> <C-W><
-nnoremap <right> <C-W>>
-nnoremap <up> <C-W>+
-nnoremap <down> <C-W>-
 
 " Paste from 0 AKA "yank-text-register" and won't work for deletes
 nnoremap <leader>0 "0p
