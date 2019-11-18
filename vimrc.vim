@@ -156,7 +156,6 @@ augroup vimrc
    autocmd!
    " .md should be markdown not modula2
    autocmd BufNewFile,BufRead *.md setlocal ft=markdown
-   autocmd FileType markdown set spell
 
    " Open .xaml as .xml
    autocmd BufNewFile,BufRead *.xaml setlocal filetype=xml
@@ -466,6 +465,9 @@ nmap <leader>o <C-P><C-\>w<cr>
 " Paste from 0 AKA "yank-text-register" and won't work for deletes
 nnoremap <leader>0 "0p
 
+nnoremap go viW"fy:e <C-R>f<cr>
+vnoremap go "fy:e <C-R>f<cr>
+
 ""================
 "" Plugin-specific
 ""================
@@ -538,7 +540,7 @@ vmap <leader> <Plug>(easymotion-prefix)
 " MRU: Remembers where I was
 let MRU_Max_Entries = 5000
 " Shortcut to open MRU
-nnoremap <leader>m :MRU<cr>/
+nnoremap <leader>m :MRU<cr>
 
 " Airline:
 let g:airline_theme="deus"
