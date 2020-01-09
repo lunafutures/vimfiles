@@ -187,6 +187,9 @@ augroup vimrc
    autocmd BufRead *.log ColorToggle
 
    autocmd BufNewFile,BufRead *o.txt setlocal ft=notes
+
+   " Adjust the cwd every time we move into a buffer
+   autocmd BufEnter cd expand("%:p:h")
 augroup END
 
 " If a vim instance already has opened some file, go to that instance instead
@@ -256,6 +259,7 @@ function! RecursiveVimGrepOnSlashRegister(restrictToSource, useNative)
    let savedDir = getcwd()
    silent copen
    execute "cd" savedDir
+   echom "Searching in directory:" getcwd()
 
    if a:restrictToSource
       if a:useNative
@@ -274,8 +278,9 @@ function! RecursiveVimGrepOnSlashRegister(restrictToSource, useNative)
    endif
 endfunction
 
-nnoremap <F10> :pwd<CR>
-nnoremap <S-F10> :cd ..<CR>:pwd<CR>
+nnoremap <F10> :echo getcwd()<CR>
+nnoremap <S-F10> :cd ..<CR>:echo getcwd()<CR>
+
 nnoremap <C-F10> :call RecursiveVimGrepOnSlashRegister(v:false, v:false)<cr>
 nnoremap <C-M-F10> :call RecursiveVimGrepOnSlashRegister(v:true, v:false)<cr>
 nnoremap <leader><F10> :vimgrep//j % \| copen<cr>
