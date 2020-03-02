@@ -472,6 +472,8 @@ nnoremap <leader>0 "0p
 
 nnoremap go viW"fy:e <C-R>f<cr>
 vnoremap go "fy:e <C-R>f<cr>
+nnoremap gso viW"fy:split <C-R>f<cr>
+vnoremap gso "fy:split <C-R>f<cr>
 
 ""================
 "" Plugin-specific
