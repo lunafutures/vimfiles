@@ -507,6 +507,8 @@ Plug 'morhetz/gruvbox'
 Plug 'xolox/vim-notes'
 Plug 'xolox/vim-misc'
 
+Plug 'leafgarland/typescript-vim'
+
 call plug#end()
 
 " vim-plug reference:
