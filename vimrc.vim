@@ -489,8 +489,8 @@ endif
 call plug#begin(actualvimrcdir . '\plugged')
 
 Plug 'easymotion/vim-easymotion'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-vinegar'
 " Tips for vim-surround:
 " * ds + surrounding character inside of a surrounder in order to remove it
