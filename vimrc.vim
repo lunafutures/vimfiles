@@ -125,7 +125,7 @@ if has("gui_running")
    set guioptions-=m " Remove menu
 
    if has('win32')
-      set guifont=Consolas:h9
+      set guifont=Consolas:h12
       " On Windows, open gvim maximized
       autocmd GUIEnter * simalt ~x
    endif
@@ -230,11 +230,11 @@ nnoremap <silent><expr> <F4> ':set wrap! go'.'-+'[&wrap]."=b\r"
 
 " Change font to support Japanese
 function! ToggleJapaneseFont()
-   if &guifont==?"Consolas:h8"
+   if &guifont==?"Consolas:h12"
       set guifont=MS_Gothic
       set encoding=utf-8
    else
-      set guifont=Consolas:h8
+      set guifont=Consolas:h12
    endif
 endfunction
 nnoremap <F5> :call ToggleJapaneseFont()<cr>
@@ -289,13 +289,6 @@ nnoremap <leader><F10> :vimgrep//j % \| copen<cr>
 nnoremap <M-n> :cnext<CR>
 nnoremap <M-S-n> :cprev<CR>
 
-" <F11> Checkout in P4
-nnoremap <M-C-F11> :!p4 edit %<CR><CR>
-inoremap <M-C-F11> <esc>:!p4 edit %<CR><CR>
-
-command! P4changes :below new | r !p4 changes -u jujin -s pending -l<cr>
-command! Piff :let filename=expand("%:p") | :leftabove new | set ft=diff | exec "r !p4 diff -db " . filename | execute 'w ' . tempname()
-
 " C-backspace deletes previous word
 inoremap <C-BS> <C-W>
 cnoremap <C-BS> <C-W>
@@ -346,6 +339,7 @@ nnoremap <silent> <C-h> :wincmd h<CR>
 nnoremap <silent> <C-j> :wincmd j<CR>
 nnoremap <silent> <C-k> :wincmd k<CR>
 nnoremap <silent> <C-l> :wincmd l<CR>
+nnoremap <C-F11> :set guifont=Consolas:h12<CR>
 
 " Reserve <leader>8 and i;
 nnoremap <leader>8 :echoerr g:devolutionMessage<cr>
@@ -475,6 +469,13 @@ vnoremap go "fy:e <C-R>f<cr>
 nnoremap gso viW"fy:split <C-R>f<cr>
 vnoremap gso "fy:split <C-R>f<cr>
 
+" Open url
+if (has('win32') || has('win64'))
+   nmap gx :exec "!start <cWORD>"<cr>
+else
+   nmap gx :exec "!open <cWORD>"<cr>
+endif
+
 ""================
 "" Plugin-specific
 ""================
@@ -522,9 +523,11 @@ execute "colorscheme" g:selectedColorScheme
 
 " a.vim:
 " <F12> Switch from header file to .c/.cpp
-nnoremap <F12> :A<CR>
-nnoremap <C-S-F12> :AS<CR>
-nnoremap <M-C-F12> :AV<CR>
+"nnoremap <F12> :A<CR>
+"nnoremap <C-S-F12> :AS<CR>
+"nnoremap <M-C-F12> :AV<CR>
+inoremap <F12> <C-r>= "[" . substitute(strftime("%m/%d"), '\v0(\d)', '\1', 'g') . "]" <CR>
+
 
 function! GoToModelOrView()
    if expand("%") =~ "Model.cs"
